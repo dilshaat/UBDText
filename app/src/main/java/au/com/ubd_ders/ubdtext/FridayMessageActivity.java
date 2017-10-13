@@ -1,5 +1,6 @@
 package au.com.ubd_ders.ubdtext;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,12 +27,11 @@ public class FridayMessageActivity extends AppCompatActivity {
     private EditText etSurahBody;
     private EditText etTarixiShahs;
     private Button btnSendFriday;
+    private String myMessage;
 
     private ArrayList<String> smsTarget = new ArrayList<String>();
 
-    private String[] people = {"0466660096", "0466660096", "0466660096","0466660096", "0466660096", "0466660096", "0466660096","0466660096", "0466660096",
-            "0466660096", "0466660096", "0466660096","0466660096", "0466660096", "0466660096", "0466660096","0466660096", "0466660096",
-            "0466660096", "0466660096", "0466660096","0466660096", "0466660096", "0466660096", "0466660096","0466660096", "0466660096"};
+    private String[] people = {"0466660096", "0466660096"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +74,13 @@ public class FridayMessageActivity extends AppCompatActivity {
     }
 
     public void sendMessage(String smsText, String body, String surah, String ayah, String person){
+        myMessage = smsText + " " + surah + " " + ayah + "-ئايەت: " + body + person;
         int counter = 1;
         for (int i = 0; i < people.length; i++) {
             try{
                 Toast.makeText(this, "SMS is sent to " + people.length + " People!!!", Toast.LENGTH_SHORT).show();
                 SmsManager smsManager = SmsManager.getDefault();
-                smsManager.sendTextMessage(people[i], null, smsText + " " + surah + " " + ayah + "-ئايەت: " + body + person,
-                        null, null);
+                smsManager.sendTextMessage(people[i], null, myMessage,null, null);
                 try {
                     if(counter % 3 == 0){ Thread.sleep(10000);}
                     else { Thread.sleep(2000); }
@@ -100,5 +100,14 @@ public class FridayMessageActivity extends AppCompatActivity {
     }
 
     public void removeContact(View view) {
+    }
+
+    public void goToWhatsApp(View view) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.putExtra(Intent.EXTRA_TEXT, myMessage );
+        intent.setType("text/plain");
+        intent.setPackage("com.whatsapp");
+        startActivity(intent);
     }
 }
