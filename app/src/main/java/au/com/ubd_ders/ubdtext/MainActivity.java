@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onFridaySMSClick(View view){
-        Intent intent = new Intent(this, FridayMessageActivity.class);
+        Intent intent = new Intent(this, FridayPickerActivity.class);
         startActivity(intent);
     }
 

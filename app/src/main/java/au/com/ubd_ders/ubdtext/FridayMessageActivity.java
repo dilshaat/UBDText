@@ -22,11 +22,10 @@ public class FridayMessageActivity extends AppCompatActivity {
     private static String TAG = FridayMessageActivity.class.getSimpleName();
 
     private TextView tvHeaderFriday;
-    private AutoCompleteTextView autoCompleteTextView;
+    private EditText etSurahNumber;
     private EditText etAyah;
     private EditText etSurahBody;
     private EditText etTarixiShahs;
-    private Button btnSendFriday;
     private String myMessage;
 
     private ArrayList<String> smsTarget = new ArrayList<String>();
@@ -39,11 +38,11 @@ public class FridayMessageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_friday_message);
 
         tvHeaderFriday = (TextView) findViewById(R.id.header_friday);
-        autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.surah_auto_complete);
+        //autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.surah_auto_complete);
         etAyah = (EditText) findViewById(R.id.et_Ayah);
         etSurahBody = (EditText) findViewById(R.id.et_surah_body);
-        btnSendFriday = (Button) findViewById(R.id.btn_sent_friday);
         etTarixiShahs = (EditText) findViewById(R.id.et_tarixi_shahs);
+        etSurahNumber = (EditText) findViewById(R.id.surah_auto_complete);
 
 
         Typeface typeface = Typeface.createFromAsset(getAssets(), "uyku.ttf");
@@ -51,15 +50,15 @@ public class FridayMessageActivity extends AppCompatActivity {
 
         tvHeaderFriday.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
 
-        String[] surahs = getResources().getStringArray(R.array.surah);
-        ArrayAdapter<String> adapterSurah = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, surahs);
-        autoCompleteTextView.setAdapter(adapterSurah);
+//        String[] surahs = getResources().getStringArray(R.array.surah);
+//        ArrayAdapter<String> adapterSurah = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, surahs);
+//        autoCompleteTextView.setAdapter(adapterSurah);
     }
 
     public void onClickBottonSendFriday(View view) {
         final String smsText = "ئەسسەلەمۇئەلەيكۇم، قۇرئان كەرەرىمدىن سۈرە" ;
         final String body = etSurahBody.getText().toString();
-        final String surah = autoCompleteTextView.getText().toString();
+        final String surah = etSurahNumber.getText().toString();
         final String ayah = etAyah.getText().toString();
         final String person = etTarixiShahs.getText().toString();
 
@@ -78,7 +77,6 @@ public class FridayMessageActivity extends AppCompatActivity {
         int counter = 1;
         for (int i = 0; i < people.length; i++) {
             try{
-                Toast.makeText(this, "SMS is sent to " + people.length + " People!!!", Toast.LENGTH_SHORT).show();
                 SmsManager smsManager = SmsManager.getDefault();
                 smsManager.sendTextMessage(people[i], null, myMessage,null, null);
                 try {

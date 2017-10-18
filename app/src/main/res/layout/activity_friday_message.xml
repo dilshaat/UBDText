@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="au.com.ubd_ders.ubdtext.FridayMessageActivity">
 
-    <AutoCompleteTextView
+    <EditText
         android:id="@+id/surah_auto_complete"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
